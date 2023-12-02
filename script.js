@@ -100,12 +100,33 @@ class LinkedList {
     return list.join(' -> ')
    }
 
-  makeList() {
+  insertAt(value, index) {
+    let newNode = new Node(value);
+    let count = 0;
     let current = this.head;
-    while (current) {
-      console.log(current.value)
-      current = current.nextNode;
+    let previous = null;
+
+    //Change head when index == 0
+    if (index === 0) {
+      newNode.nextNode = this.head;
+      this.head = newNode;
+      return;
     }
+
+    while (count !== index) {
+      previous = current;
+      console.log(current + " " + count + " " + index);
+      current = current.nextNode;
+      count++;
+    }
+
+    // Check if numbers are incorrect
+    if (!current && count < index) {
+      console.error("Index not present.")
+    }
+
+    newNode.nextNode = current;
+    previous.nextNode = newNode;
   }
 }
 
@@ -118,14 +139,3 @@ class Node {
 
 
 const list = new LinkedList();
-
-list.append('1')
-list.append('153')
-list.append('132')
-list.prepend('x');
-//list.head;
-//list.tail();
-//list.at(0)
-//list.pop()
-//list.find(1)
-//list.makeList();
